@@ -371,7 +371,7 @@ func (s *SearchService) SeqNoPrimaryTerm(v bool) *SearchService {
 }
 
 // buildURL builds the URL for the operation.
-func (s *SearchService) buildURL() (string, url.Values, error) {
+func (s *SearchService) BuildURL() (string, url.Values, error) {
 	var err error
 	var path string
 
@@ -446,7 +446,7 @@ func (s *SearchService) Do(ctx context.Context) (*SearchResult, error) {
 	}
 
 	// Get URL for request
-	path, params, err := s.buildURL()
+	path, params, err := s.BuildURL()
 	if err != nil {
 		return nil, err
 	}

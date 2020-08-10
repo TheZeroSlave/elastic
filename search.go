@@ -476,7 +476,7 @@ func (s *SearchService) Do(ctx context.Context) (*SearchResult, error) {
 	// Return search results
 	ret := new(SearchResult)
 	if err := s.client.decoder.Decode(res.Body, ret); err != nil {
-		return nil, errors.New("From elastic decode lib: " +  err + "#" + string(res.Body))
+		return nil, errors.New("From elastic decode lib: " +  err.Error() + "#" + string(res.Body))
 	}
 	return ret, nil
 }

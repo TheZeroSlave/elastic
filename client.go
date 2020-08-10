@@ -103,6 +103,15 @@ var (
 // It is used in NewClient.
 type ClientOptionFunc func(*Client) error
 
+func (c *Client) Clone(options ...ClientOptionFunc) *Client {
+	copy := *c
+	for _, opt := range options {
+		opt(&copy)
+	}
+	return &copy
+}
+
+
 // Client is an Elasticsearch client. Create one by calling NewClient.
 type Client struct {
 	c *http.Client // net/http Client to use for requests

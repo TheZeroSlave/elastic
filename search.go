@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"reflect"
 	"strings"
+	"errors"
 
 	"github.com/olivere/elastic/uritemplates"
 )
@@ -469,13 +470,13 @@ func (s *SearchService) Do(ctx context.Context) (*SearchResult, error) {
 		MaxResponseSize: s.maxResponseSize,
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.New("From elastic perform request: " + err.Error())
 	}
 
 	// Return search results
 	ret := new(SearchResult)
 	if err := s.client.decoder.Decode(res.Body, ret); err != nil {
-		return nil, err
+		return nil, errors.New("From elastic decode lib: " +  err + "#" + string(res.Body))
 	}
 	return ret, nil
 }
